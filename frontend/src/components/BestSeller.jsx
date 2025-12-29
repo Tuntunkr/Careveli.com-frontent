@@ -16,7 +16,7 @@ const BestSeller = () => {
     <div className="my-10">
       <div className="text-center py-8 text-3xl">
         <Title text1={"BEST"} text2={"SELLERS"} />
-        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
+        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the.
         </p>
@@ -25,10 +25,11 @@ const BestSeller = () => {
         {bestSeller.map((item, index) => (
           <ProductItem
             key={index}
-            id={item.id}
+            id={item._id}
             image={item.image}
             name={item.name}
             price={item.price}
+            soldOut={item.soldOut}
           />
         ))}
       </div>

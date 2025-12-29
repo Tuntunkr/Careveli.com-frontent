@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../contexts/ShopContext";
 import Title from "../components/Title";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Orders = () => {
   const { currency, backendUrl, token } = useContext(ShopContext);
@@ -76,7 +77,7 @@ const Orders = () => {
                 </p>
               </div>
             </div>
-            <div className="md:w-1/2 flex justify-between">
+            <div className="md:w-1/2 flex justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 <p className="min-w-2 h-2 rounded-full bg-green-500"></p>
                 <p className="text-sm md:text-base">{item.status}</p>
@@ -86,6 +87,18 @@ const Orders = () => {
                 className="border px-4 py-2 text-sm font-medium rounded-sm"
               >
                 Track Order
+              </button>
+              <button
+                onClick={() => toast.info("Invoice downloaded.")}
+                className="border px-4 py-2 text-sm font-medium rounded-sm hover:bg-gray-50"
+              >
+                Invoice
+              </button>
+              <button
+                onClick={() => toast.info("Return requested.")}
+                className="border px-4 py-2 text-sm font-medium rounded-sm text-red-500 border-red-500 hover:bg-red-50"
+              >
+                Return
               </button>
             </div>
           </div>

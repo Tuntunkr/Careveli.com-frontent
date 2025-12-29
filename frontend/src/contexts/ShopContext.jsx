@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { products as assetsProducts } from "../assets/frontend_assets/assets";
 
 export const ShopContext = createContext();
 
@@ -12,10 +13,32 @@ const ShopContextProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
-  const [products, setProducts] = useState([]);
+  // Helper to enrich products with wishlist counts
+  const enrichProducts = (productList) => {
+    return productList.map(product => ({
+        ...product,
+        wishlistCount: product.wishlistCount || Math.floor(Math.random() * (500 - 50 + 1)) + 50 // Random count between 50 and 500
+    }));
+  };
+  
+  const [products, setProducts] = useState(enrichProducts(assetsProducts));
   const [token, setToken] = useState(
     localStorage.getItem("token") ? localStorage.getItem("token") : ""
   );
+  const [wishlistItems, setWishlistItems] = useState({});
+
+  const addToWishlist = async (itemId) => {
+    let wishlistData = structuredClone(wishlistItems);
+
+    if (wishlistData[itemId]) {
+      delete wishlistData[itemId];
+      toast.info("Removed from Wishlist");
+    } else {
+      wishlistData[itemId] = true;
+      toast.success("Added to Wishlist");
+    }
+    setWishlistItems(wishlistData);
+  };
   const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
@@ -101,15 +124,21 @@ const ShopContextProvider = ({ children }) => {
     return totalAmount;
   };
 
+
+
   const getProductsData = async () => {
     try {
+      /* API Fetch Commented to show Local Assets for Demo
       const response = await axios.get(backendUrl + "/api/product/list");
 
       if (response.data.success) {
-        setProducts(response.data.products);
+        setProducts(enrichProducts(response.data.products));
       } else {
         toast.error(response.data.message);
       }
+      */
+      // Using local assets is sufficient for now since we added 20 new items there
+      setProducts(enrichProducts(assetsProducts));
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -160,6 +189,8 @@ const ShopContextProvider = ({ children }) => {
     backendUrl,
     token,
     setToken,
+    wishlistItems,
+    addToWishlist,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
