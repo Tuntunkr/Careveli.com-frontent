@@ -15,6 +15,14 @@ import SearchBar from "./components/SearchBar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import Verify from "./pages/Verify";
+import Wishlist from "./pages/Wishlist";
+import Profile from "./pages/Profile";
+import Blog from "./pages/Blog";
+import WhatsAppWidget from "./components/WhatsAppWidget";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
+import ShippingPolicy from "./pages/ShippingPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
 
 const App = () => {
   return (
@@ -33,7 +41,15 @@ const App = () => {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/shipping-policy" element={<ShippingPolicy />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
       </Routes>
+      <WhatsAppWidget />
       <Footer />
     </div>
   );
