@@ -24,8 +24,6 @@ const Contact = () => {
             <p className="text-sm mt-4 italic">Last updated on Dec 24 2025</p>
           </div>
         </div>
-
-
       <div className="my-10 flex flex-col justify-center md:flex-row gap-10">
         <form className="flex flex-col gap-4 w-full md:max-w-[480px]">
             <p className="font-semibold text-xl text-gray-600">Get in Touch</p>

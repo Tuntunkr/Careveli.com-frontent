@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../contexts/ShopContext";
 import { assets } from "../assets/frontend_assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
+import { motion } from "framer-motion";
 
 const Product = () => {
   const { productId } = useParams();
@@ -27,7 +28,12 @@ const Product = () => {
   }, [productId, products]);
 
   return productData ? (
-    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="border-t-2 pt-10 dark:border-gray-700"
+    >
       {/* Product Data */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
         {/* Product Images */}
@@ -49,46 +55,53 @@ const Product = () => {
         </div>
         {/* Product info */}
         <div className="flex-1">
-          <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
+          <h1 className="font-medium text-2xl mt-2 dark:text-gray-100">{productData.name}</h1>
           <div className="flex items-center gap-1 mt-2">
             <img className="w-3.5" src={assets.star_icon} alt="" />
             <img className="w-3.5" src={assets.star_icon} alt="" />
             <img className="w-3.5" src={assets.star_icon} alt="" />
             <img className="w-3.5" src={assets.star_icon} alt="" />
             <img className="w-3.5" src={assets.star_dull_icon} alt="" />
-            <p className="pl-2">122</p>
+            <p className="pl-2 dark:text-gray-300">122</p>
           </div>
-          <p className="mt-5 text-3xl font-medium">
+          <p className="mt-5 text-3xl font-medium dark:text-gray-100">
             {currency}
             {productData.price}
           </p>
-          <p className="mt-5 text-gray-500 md:w-4/5">
+          <p className="mt-5 text-gray-500 dark:text-gray-400 md:w-4/5">
             {productData.description}
           </p>
-          <div className="flex flex-col gap-4 my-8">
-            <p>Select Size</p>
-            <div className="flex gap-2">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="flex flex-col gap-4 my-8"
+          >
+            <p className="text-gray-800 dark:text-gray-200 font-medium">Select Size</p>
+            <div className="flex gap-2 flex-wrap">
               {productData.sizes.map((item, index) => (
-                <button
+                <motion.button
                   onClick={() => setSize(item)}
                   key={index}
-                  className={`border py-2 px-4 bg-gray-100 ${
-                    item === size && "border-orange-500"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`border py-2 px-4 bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors ${
+                    item === size && "border-orange-500 dark:border-orange-500 bg-orange-50 dark:bg-orange-900/30"
                   }`}
                 >
                   {item}
-                </button>
+                </motion.button>
               ))}
             </div>
-          </div>
+          </motion.div>
           <div className="flex gap-4">
           <button
             onClick={() => addToCart(productData._id, size)}
-            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:active:bg-gray-300 transition-colors"
           >
             ADD TO CART
           </button>
-          <button onClick={() => addToWishlist(productData._id)} className="w-12 h-12 border flex items-center justify-center group bg-gray-100 hover:bg-gray-200 transition-colors">
+          <button onClick={() => addToWishlist(productData._id)} className="w-12 h-12 border flex items-center justify-center group bg-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
              <svg 
               className={`w-6 h-6 transition-colors ${wishlistItems[productData._id] ? 'text-red-500 fill-current' : 'text-gray-500 group-hover:text-red-500'}`}
               xmlns="http://www.w3.org/2000/svg" 
@@ -101,8 +114,8 @@ const Product = () => {
             </svg>
           </button>
           </div>
-          <hr className="mt-8 sm:w-4/5" />
-          <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
+          <hr className="mt-8 sm:w-4/5 dark:border-gray-700" />
+          <div className="text-sm text-gray-500 dark:text-gray-400 mt-5 flex flex-col gap-1">
             <p>100% Original product.</p>
             <p>Cash on delivery is available on this product.</p>
             <p>Easy return and exchange policy within 7 days.</p>
@@ -114,18 +127,18 @@ const Product = () => {
         <div className="flex">
           <button 
             onClick={() => setActiveTab("description")} 
-            className={`border px-5 py-3 text-sm font-bold ${activeTab === 'description' ? '' : 'font-normal text-gray-500'}`}
+            className={`border px-5 py-3 text-sm font-bold dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 ${activeTab === 'description' ? 'dark:bg-gray-800 dark:text-gray-200' : 'font-normal text-gray-500 dark:text-gray-400'}`}
           >
             Description
           </button>
           <button 
             onClick={() => setActiveTab("reviews")}
-            className={`border px-5 py-3 text-sm font-bold ${activeTab === 'reviews' ? '' : 'font-normal text-gray-500'}`}
+            className={`border px-5 py-3 text-sm font-bold dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 ${activeTab === 'reviews' ? 'dark:bg-gray-800 dark:text-gray-200' : 'font-normal text-gray-500 dark:text-gray-400'}`}
           >
             Reviews (122)
           </button>
         </div>
-        <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
+        <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500 dark:text-gray-400 dark:border-gray-700">
           {activeTab === "description" ? (
             <>
               <p>
@@ -148,38 +161,38 @@ const Product = () => {
             <div className="flex flex-col gap-4">
               <div className="border-b pb-4">
                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center font-bold">J</div>
+                    <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center font-bold text-gray-800 dark:text-gray-200">J</div>
                     <div>
-                      <p className="font-semibold text-gray-800">John Doe</p>
+                      <p className="font-semibold text-gray-800 dark:text-gray-200">John Doe</p>
                       <div className="flex text-xs text-yellow-500">
                         ★★★★★
                       </div>
                     </div>
                  </div>
-                 <p>Great product! accurate sizing and good quality.</p>
+                 <p className="text-gray-600 dark:text-gray-300">Great product! accurate sizing and good quality.</p>
               </div>
-              <div className="border-b pb-4">
+              <div className="border-b pb-4 dark:border-gray-700">
                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center font-bold">A</div>
+                    <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center font-bold text-gray-800 dark:text-gray-200">A</div>
                     <div>
-                      <p className="font-semibold text-gray-800">Alice Smith</p>
+                      <p className="font-semibold text-gray-800 dark:text-gray-200">Alice Smith</p>
                       <div className="flex text-xs text-yellow-500">
                         ★★★★☆
                       </div>
                     </div>
                  </div>
-                 <p>Nice fabric but delivery was a bit slow.</p>
+                 <p className="text-gray-600 dark:text-gray-300">Nice fabric but delivery was a bit slow.</p>
               </div>
               
               <div className="mt-4">
-                <h3 className="text-gray-800 font-medium mb-2">Write a Review</h3>
+                <h3 className="text-gray-800 dark:text-gray-200 font-medium mb-2">Write a Review</h3>
                 <form className="flex flex-col gap-3">
                   <div className="flex gap-2">
-                    <input type="text" placeholder="Your Name" className="border p-2 w-full rounded" />
-                    <input type="email" placeholder="Email Address" className="border p-2 w-full rounded" />
+                    <input type="text" placeholder="Your Name" className="border p-2 w-full rounded dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:placeholder-gray-500" />
+                    <input type="email" placeholder="Email Address" className="border p-2 w-full rounded dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:placeholder-gray-500" />
                   </div>
-                  <textarea placeholder="Your Review" className="border p-2 rounded h-20"></textarea>
-                  <button className="bg-black text-white px-4 py-2 w-fit">Submit Review</button>
+                  <textarea placeholder="Your Review" className="border p-2 rounded h-20 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:placeholder-gray-500"></textarea>
+                  <button className="bg-black text-white px-4 py-2 w-fit dark:bg-white dark:text-black dark:hover:bg-gray-200 transition-colors">Submit Review</button>
                 </form>
               </div>
             </div>
@@ -191,7 +204,7 @@ const Product = () => {
         category={productData.category}
         subCategory={productData.subCategory}
       />
-    </div>
+    </motion.div>
   ) : (
     <div className="opacity-0"></div>
   );
