@@ -7,7 +7,7 @@ import { products as assetsProducts } from "../assets/frontend_assets/assets";
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({ children }) => {
-  const currency = "$";
+  const currency = "\u20B9";
   const deliveryFee = 10;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState("");

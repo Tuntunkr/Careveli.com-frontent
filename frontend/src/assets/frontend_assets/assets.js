@@ -54,6 +54,11 @@ import p_img49 from "./p_img49.png";
 import p_img50 from "./p_img50.png";
 import p_img51 from "./p_img51.png";
 import p_img52 from "./p_img52.png";
+import p_img53 from "./p_img53.png";
+import p_img54 from "./p_img54.png";
+import p_img55 from "./p_img55.png";
+import p_img56 from "./p_img56.png";
+import p_img57 from "./p_img57.png";
 
 import logo from "./logo.png";
 import hero_img from "./hero_img.png";
@@ -1065,5 +1070,44 @@ export const products = [
     sizes: ["S", "M", "L", "XL"],
     date: 1716668445468,
     bestseller: true,
+  },
+  {
+    _id: "aaaca",
+    name: "Men Round Neck Pure Cotton pull-over",
+    description:
+      "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+    price: 1199,
+    image: [p_img53],
+    category: "Men",
+    subCategory: "Topwear",
+    sizes: ["M", "L", "XL"],
+    date: 1716621345469,
+    bestseller: true,
+  },
+  {
+    _id: "aaacb",
+    name: "Men Pure Cotton Checkered Shirt",
+    description:
+      "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+    price: 1099,
+    image: [p_img54, p_img55, p_img56],
+    category: "Men",
+    subCategory: "Topwear",
+    sizes: ["M", "L", "XL"],
+    date: 1716621345470,
+    bestseller: false,
+  },
+  {
+    _id: "aaacc",
+    name: "women Pure Cotton Shirt",
+    description:
+      "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+    price: 699,
+    image: [p_img57],
+    category: "Women",
+    subCategory: "Topwear",
+    sizes: ["M", "L", "XL"],
+    date: 1716621345471,
+    bestseller: false,
   },
 ];
