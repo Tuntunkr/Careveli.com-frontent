@@ -67,7 +67,7 @@ const Hero = () => {
               <motion.img
                 key={currentIndex}
                 src={heroImages[currentIndex]}
-                alt={`hero_slide_${currentIndex + 1}`}
+                alt={`hero_slide_₹{currentIndex + 1}`}
                 className='w-full h-full object-cover'
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -103,12 +103,12 @@ const Hero = () => {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ₹{
                     index === currentIndex
                       ? 'bg-white dark:bg-gray-200 w-8'
                       : 'bg-white/50 dark:bg-gray-500/50 hover:bg-white/75 dark:hover:bg-gray-400/75'
                   }`}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Go to slide ₹{index + 1}`}
                 />
               ))}
             </div>
