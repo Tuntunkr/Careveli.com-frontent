@@ -41,7 +41,7 @@ const Profile = () => {
         <h2 className="text-xl font-medium mb-4">My Account</h2>
         <button
           onClick={() => setActiveTab("profile")}
-          className={`text-left px-4 py-2 border rounded ${
+          className={`text-left px-4 py-2 border rounded ₹{
             activeTab === "profile" ? "bg-black text-white" : "hover:bg-gray-100"
           }`}
         >
@@ -49,7 +49,7 @@ const Profile = () => {
         </button>
         <button
           onClick={() => setActiveTab("address")}
-          className={`text-left px-4 py-2 border rounded ${
+          className={`text-left px-4 py-2 border rounded ₹{
             activeTab === "address" ? "bg-black text-white" : "hover:bg-gray-100"
           }`}
         >

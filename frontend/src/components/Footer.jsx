@@ -64,9 +64,9 @@ const Footer = () => {
           Copyright 2025 @ Careveli - All Right Reserved.
         </p>
         <div className="flex gap-4">
-           <div className="w-8 h-5 bg-gray-200 dark:bg-gray-700 rounded"></div>
-           <div className="w-8 h-5 bg-gray-200 dark:bg-gray-700 rounded"></div>
-           <div className="w-8 h-5 bg-gray-200 dark:bg-gray-700 rounded"></div>
+           {/* Payment Icons */}
+           <img src={assets.razorpay_logo} alt="Razorpay" className="h-6 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" />
+           <img src={assets.stripe_logo} alt="Stripe" className="h-6 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" />
         </div>
       </div>
     </div>

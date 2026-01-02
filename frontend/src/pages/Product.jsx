@@ -3,11 +3,14 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../contexts/ShopContext";
 import { assets } from "../assets/frontend_assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
+import RazorpayPayment from "../components/RazorpayPayment";
+import Breadcrumb from "../components/Breadcrumb";
+import ZoomableImage from "../components/ZoomableImage";
 import { motion } from "framer-motion";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart, wishlistItems, addToWishlist } = useContext(ShopContext);
+  const { products, currency, addToCart, wishlistItems, addToWishlist, navigate } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
@@ -34,6 +37,8 @@ const Product = () => {
       transition={{ duration: 0.5 }}
       className="border-t-2 pt-10 dark:border-gray-700"
     >
+      <Breadcrumb category={productData.category} subCategory={productData.subCategory} product={productData.name} />
+
       {/* Product Data */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
         {/* Product Images */}
@@ -50,7 +55,7 @@ const Product = () => {
             ))}
           </div>
           <div className="w-full sm:w-[80%]">
-            <img className="w-full h-auto" src={image} alt="" />
+            <ZoomableImage src={image} alt={productData.name} />
           </div>
         </div>
         {/* Product info */}
@@ -94,26 +99,45 @@ const Product = () => {
               ))}
             </div>
           </motion.div>
-          <div className="flex gap-4">
-          <button
-            onClick={() => addToCart(productData._id, size)}
-            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:active:bg-gray-300 transition-colors"
-          >
-            ADD TO CART
-          </button>
-          <button onClick={() => addToWishlist(productData._id)} className="w-12 h-12 border flex items-center justify-center group bg-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-             <svg 
-              className={`w-6 h-6 transition-colors ${wishlistItems[productData._id] ? 'text-red-500 fill-current' : 'text-gray-500 group-hover:text-red-500'}`}
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="1.5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-            </svg>
-          </button>
-          </div>
+            {productData.soldOut 
+              ? <div className="text-red-500 font-bold text-xl mt-5">Out of Stock</div>
+              : (
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => addToCart(productData._id, size)}
+                    className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:active:bg-gray-300 transition-colors"
+                  >
+                    ADD TO CART
+                  </button>
+                  <button 
+                    onClick={() => {
+                        if (size) {
+                            addToCart(productData._id, size);
+                            navigate('/place-order');
+                        } else {
+                            addToCart(productData._id, size);
+                        }
+                    }}
+                    className="bg-orange-600 text-white px-8 py-3 text-sm active:bg-orange-700 hover:bg-orange-500 transition-colors"
+                  >
+                    BUY NOW
+                  </button>
+                  {/* <RazorpayPayment inrAmount={productData.price} /> */}
+                  <button onClick={() => addToWishlist(productData._id)} className="w-12 h-12 border flex items-center justify-center group bg-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <svg 
+                      className={`w-6 h-6 transition-colors ${wishlistItems[productData._id] ? 'text-red-500 fill-current' : 'text-gray-500 group-hover:text-red-500'}`}
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="1.5"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                  </button>
+                </div>
+              )
+            }
           <hr className="mt-8 sm:w-4/5 dark:border-gray-700" />
           <div className="text-sm text-gray-500 dark:text-gray-400 mt-5 flex flex-col gap-1">
             <p>100% Original product.</p>
