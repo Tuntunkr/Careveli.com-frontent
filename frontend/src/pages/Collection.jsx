@@ -3,6 +3,7 @@ import { ShopContext } from "../contexts/ShopContext";
 import { assets } from "../assets/frontend_assets/assets";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
+import Breadcrumb from "../components/Breadcrumb";
 
 const Collection = () => {
   const { products, search, showSearch } = useContext(ShopContext);
@@ -55,6 +56,9 @@ const Collection = () => {
   const sortProduct = () => {
     let filterProductsCopy = filterProducts.slice();
     switch (sortType) {
+      case "newest":
+        setFilterProducts(filterProductsCopy.sort((a, b) => b.date - a.date));
+        break;
       case "low-high":
         setFilterProducts(filterProductsCopy.sort((a, b) => a.price - b.price));
         break;
@@ -76,7 +80,9 @@ const Collection = () => {
   }, [sortType]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
+    <div className="pt-10 border-t">
+      <Breadcrumb category={null} />
+      <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-5">
       {/* Filter options */}
       <div className="min-w-60">
         <p
@@ -85,14 +91,14 @@ const Collection = () => {
         >
           FILTERS
           <img
-            className={`h-3 sm:hidden ${showFilter ? "rotate-90" : ""}`}
+            className={`h-3 sm:hidden ₹{showFilter ? "rotate-90" : ""}`}
             src={assets.dropdown_icon}
             alt="dropdown_icon"
           />
         </p>
         {/* Category Filter */}
         <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 sm:block ${
+          className={`border border-gray-300 pl-5 py-3 mt-6 sm:block ₹{
             showFilter ? "" : "hidden"
           }`}
         >
@@ -129,7 +135,7 @@ const Collection = () => {
         </div>
         {/* Sub-Category Filter */}
         <div
-          className={`border border-gray-300 pl-5 py-3 my-5 sm:block ${
+          className={`border border-gray-300 pl-5 py-3 my-5 sm:block ₹{
             showFilter ? "" : "hidden"
           }`}
         >
@@ -175,6 +181,7 @@ const Collection = () => {
             className="border-2 border-gray-300 text-sm px-2"
           >
             <option value="relevant">Sort by: Relevant</option>
+            <option value="newest">Sort by: Newest</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>
           </select>
@@ -192,6 +199,7 @@ const Collection = () => {
             />
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

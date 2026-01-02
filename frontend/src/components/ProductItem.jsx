@@ -44,10 +44,10 @@ const ProductItem = ({ id, image, name, price, soldOut }) => {
       </button>
 
       <Link className='space-y-1 block' to={`/product/${id}`}>
-        <p className='text-[10px] text-gray-500 uppercase tracking-widest'>New Arrival</p>
+        <p className='text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-widest'>New Arrival</p>
         <p className='text-sm font-medium text-gray-900 dark:text-white truncate'>{name}</p>
         <div className='flex items-center gap-2'>
-            <p className='text-sm font-semibold'>{currency}{price}</p>
+            <p className='text-sm font-semibold text-gray-900 dark:text-gray-200'>{currency}{price}</p>
              {/* Rating Stars Mockup */}
              <div className='flex text-yellow-400 text-[10px]'>
                 <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
